@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:id="@+id/fragment_game" >
+	    
+	    <!-- names and scrollviews -->
+	    <GridLayout
+	        android:id="@+id/teams_grid"
+	 	    android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+		    
+	        android:useDefaultMargins="true"
+	        android:alignmentMode="alignBounds"
+	        android:columnOrderPreserved="false"
+	
+	        android:columnCount="3"
+	        android:rowCount="5" >
+	        
+	        <!-- column 0 = labels -->
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="0"
+		 	    android:text="@string/team_name_label" />
+		 	
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="3"
+		   	    android:layout_column="0"
+		 	    android:text="@string/total_score_label" />
+		 	
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="4"
+		   	    android:layout_column="0"
+		 	    android:text="@string/pts_label" />
+	        
+	   		<include 
+	   		    android:id="@+id/team1_layout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="1"
+		   	    android:layout_rowSpan="5"
+	   		    layout="@layout/column_team" />
+	   		
+	   		<include 
+	   		    android:id="@+id/team2_layout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="2"
+		   	    android:layout_rowSpan="5"
+	   		    layout="@layout/column_team" />
+	  	</GridLayout>
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+		    
+	        
+		    <!-- button to add scores up -->
+		    <Button
+		        android:id="@+id/add_scores"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="center_horizontal"
+		   	    android:onClick="addScores"
+		   	    android:text="@string/add_scores_btn"
+		         />
+		    
+		    <Button
+		        android:id="@+id/undo"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="center_horizontal"
+		   	    android:onClick="undo"
+		   	    android:text="@string/undo_btn"
+		         />
+		    
+		    <Button
+		        android:id="@+id/clear"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="right"
+		   	    android:onClick="clear"
+		   	    android:text="@string/clear_btn"
+		         />
+		    
+		    <Button
+		        android:id="@+id/plus"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="right"
+		   	    android:onClick="plus"
+		   	    android:text="@string/plus_btn"
+		         />
+		    
+	    </LinearLayout>
+   	</LinearLayout>
+
+</ScrollView>

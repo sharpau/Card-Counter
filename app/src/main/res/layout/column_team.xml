@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <EditText
+        android:id="@+id/teamname"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_gravity="right"
+   	    android:singleLine="true"
+   	    android:imeOptions="actionNext"
+   	    android:hint="@string/team" />
+    
+    <!-- scores entered, to be summed -->
+    <LinearLayout
+	    android:id="@+id/team1_list"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_gravity="right" />
+ 	
+ 	<!-- sum line -->
+ 	<View
+        android:layout_width="40dp"
+		android:layout_height="1dp"
+   	    android:layout_gravity="right"
+		android:background="@android:color/black" />
+ 	
+ 	<!-- sums total scores -->
+ 	<TextView
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+   	    android:layout_gravity="right"
+ 	    android:id="@+id/team_score"
+ 	    android:textSize="18sp"
+ 	    android:hint="@string/zero" />
+ 	
+ 	<!-- entry for points -->
+    <EditText
+        android:id="@+id/team_points"
+        android:inputType="number"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_gravity="right"
+   	    android:hint="@string/zero" />
+
+</LinearLayout>

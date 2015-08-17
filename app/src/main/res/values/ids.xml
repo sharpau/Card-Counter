@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="team1name" />
+    <item type="id" name="team1_meld" />
+    <item type="id" name="team1_tricks" />
+    <item type="id" name="team2name" />
+    <item type="id" name="team2_meld" />
+    <item type="id" name="team2_tricks" />
+    <item type="id" name="bid" />
+    <item type="id" name="trump" />
+</resources>

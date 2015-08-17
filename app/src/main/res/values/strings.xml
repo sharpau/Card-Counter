@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CardCounter</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">History</string>
+    <string name="title_section2">Current</string>
+    <string name="title_section3">Scoring</string>
+    <string name="switch_button">Switch</string>
+    <string name="zero">0</string>
+    <string name="minimum_meld">250</string>
+    <string name="minimum_tricks">6</string>
+    <string name="score_col">Score</string>
+    <string name="win_col">Winning Team</string>
+    <string name="lose_col">Losing Team</string>
+    <string name="team1">Team 1</string>
+    <string name="team2">Team 2</string>
+    <string name="team">T</string>
+    <string name="add_scores_btn">Add Scores</string>
+    <string name="undo_btn">Undo</string>
+    <string name="clear_btn">Clear</string>
+    <string name="plus_btn">+Team</string>
+    <string name="clear_history_btn">Clear History</string>
+    <string name="current_bid_label">Current Bid</string>
+    <string name="team_name_label">Team Name</string>
+    <string name="total_score_label">Total Score</string>
+    <string name="meld_pts_label">Meld Points</string>
+    <string name="pts_label">Points</string>
+    <string name="trick_pts_label">Trick Points</string>
+    <string name="trick_num_label">Tricks Taken</string>
+    <string name="trump_suit_label">Trump Suit</string>
+    <string name="bidding_team_label">Bidding Team</string>
+    <string name="suit_hint">Hearts</string>
+    
+    
+    <string-array name="game_types">
+        <item>Pinochle</item>
+        <item>500</item>
+        <item>Generic</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="melds">
+        <item>Aces Around</item>
+        <item>Kings Around</item>
+        <item>Queens Around</item>
+        <item>Jacks Around</item>
+        <item>Family in Trump</item>
+        <item>Marriage in Trump</item>
+        <item>9 of Trump</item>
+        <item>Marriage non-Trump</item>
+        <item>Pinochle</item>
+        <item>Double Pinochle</item>
+        <item>Double Around or Family</item>
+    </string-array>
+    
+    <string-array name="meld_values">
+        <item>100</item>
+        <item>80</item>
+        <item>60</item>
+        <item>40</item>
+        <item>150</item>
+        <item>40</item>
+        <item>10</item>
+        <item>20</item>
+        <item>40</item>
+        <item>300</item>
+        <item>10x single</item>
+    </string-array>
+    
+    <string-array name="tricks">
+        <item>K, 10, A</item>
+        <item>Last Trick</item>
+    </string-array>
+    
+    <string-array name="trick_values">
+        <item>10</item>
+        <item>10</item>
+    </string-array>
+    
+    <string-array name="tricks_alt">
+        <item>A</item>
+        <item>10</item>
+        <item>K</item>
+        <item>Q</item>
+        <item>J</item>
+        <item>Last Trick</item>
+    </string-array>
+    
+    <string-array name="trick_alt_values">
+        <item>11</item>
+        <item>10</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>10</item>
+    </string-array>
+
+</resources>

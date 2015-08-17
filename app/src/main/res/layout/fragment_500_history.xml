@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+    
+	    <GridLayout
+	        android:id="@+id/five_hundred_history_grid"
+	 	    android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+		    
+	        android:useDefaultMargins="true"
+	        android:alignmentMode="alignBounds"
+	        android:columnOrderPreserved="false"
+	
+	        android:columnCount="4" >
+	    
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="0"
+		 	    android:text="@string/win_col" />
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="1"
+		 	    android:text="@string/score_col" />
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="2"
+		 	    android:text="@string/lose_col" />
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="3"
+		 	    android:text="@string/score_col" />
+	        
+		</GridLayout>
+		
+	    <Button
+			android:id="@+id/clear_history"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:onClick="clearHistory"
+			android:text="@string/clear_history_btn"
+			/>
+    </LinearLayout>
+    
+</ScrollView>

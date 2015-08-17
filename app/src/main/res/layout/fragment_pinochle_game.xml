@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:id="@+id/fragment_game" >
+	    
+	    <!-- names and scrollviews -->
+	    <GridLayout
+	 	    android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+		    
+	        android:useDefaultMargins="true"
+	        android:alignmentMode="alignBounds"
+	        android:columnOrderPreserved="false"
+	
+	        android:columnCount="3"
+	        android:rowCount="6" >
+	        
+	        <!-- column 0 = labels -->
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="0"
+		 	    android:text="@string/team_name_label" />
+		 	
+	        <TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="3"
+		   	    android:layout_column="0"
+		 	    android:text="@string/total_score_label" />
+		 	
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="4"
+		   	    android:layout_column="0"
+		 	    android:text="@string/meld_pts_label" />
+		 	
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="5"
+		   	    android:layout_column="0"
+		 	    android:text="@string/trick_pts_label" />
+	        
+	        <!-- column 1 = team 1 -->
+		    <EditText
+		        android:id="@id/team1name"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="1"
+		   	    android:layout_gravity="right"
+		   	    android:singleLine="true"
+		   	    android:imeOptions="actionNext"
+		   	    android:nextFocusDown="@id/team2name"
+		   	    android:hint="@string/team1" />
+		    
+		    <!-- scores entered, to be summed -->
+		    <LinearLayout
+			    android:id="@+id/team1_list"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		   	    android:layout_row="1"
+		   	    android:layout_column="1"
+			    android:orientation="vertical"
+			    android:layout_gravity="right" />
+		 	
+		 	<!-- sum line -->
+		 	<View
+	            android:layout_width="80dp"
+				android:layout_height="1dp"
+		   	    android:layout_row="2"
+		   	    android:layout_column="1"
+		   	    android:layout_gravity="right"
+				android:background="@android:color/black" />
+		 	
+		 	<!-- sums total scores -->
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="3"
+		   	    android:layout_column="1"
+		   	    android:layout_gravity="right"
+		 	    android:id="@+id/team1_score"
+		 	    android:textSize="18sp"
+		 	    android:hint="@string/zero" />
+		 	
+		 	<!-- entry for meld points -->
+		    <EditText
+		        android:id="@id/team1_meld"
+		        android:inputType="number"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="4"
+		   	    android:layout_column="1"
+		   	    android:layout_gravity="right"
+		   	    android:nextFocusDown="@id/team2_meld"
+		   	    android:hint="@string/zero" />
+		    
+		 	<!-- entry for trick points -->
+		    <EditText
+		        android:id="@id/team1_tricks"
+		        android:inputType="number"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="5"
+		   	    android:layout_column="1"
+		   	    android:layout_gravity="right"
+		   	    android:nextFocusDown="@id/team2_tricks"
+		   	    android:hint="@string/zero" />
+		    
+	        <!-- column 2 = team 2 -->
+		    <EditText
+		        android:id="@id/team2name"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="2"
+		   	    android:layout_gravity="right"
+		   	    android:singleLine="true"
+		   	    android:imeOptions="actionNext"
+		   	    android:nextFocusDown="@id/team1_meld"
+		   	    android:hint="@string/team2" />
+		    
+		    <!-- scores entered, to be summed -->
+		    <LinearLayout
+			    android:id="@+id/team2_list"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		   	    android:layout_row="1"
+		   	    android:layout_column="2"
+			    android:orientation="vertical"
+			    android:layout_gravity="right" />
+		 	
+		 	<!-- sum line -->
+		 	<View
+	            android:layout_width="80dp"
+				android:layout_height="1dp"
+		   	    android:layout_row="2"
+		   	    android:layout_column="2"
+		   	    android:layout_gravity="right"
+				android:background="@android:color/black" />
+		 	
+		 	<!-- sums total scores -->
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="3"
+		   	    android:layout_column="2"
+		   	    android:layout_gravity="right"
+		 	    android:id="@+id/team2_score"
+		 	    android:textSize="18sp"
+		 	    android:hint="@string/zero" />
+		 	
+		 	<!-- entry for meld points -->
+		    <EditText
+		        android:id="@id/team2_meld"
+		        android:inputType="number"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="4"
+		   	    android:layout_column="2"
+		   	    android:layout_gravity="right"
+		   	    android:nextFocusDown="@id/team1_tricks"
+		   	    android:hint="@string/zero" />
+		    
+		 	<!-- entry for trick points -->
+		    <EditText
+		        android:id="@id/team2_tricks"
+		        android:inputType="number"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="5"
+		   	    android:layout_column="2"
+		   	    android:layout_gravity="right"
+		   	    android:nextFocusDown="@id/bid"
+		   	    android:hint="@string/zero" />
+		    
+	    </GridLayout>
+		    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+		    
+	        
+		    <!-- button to add scores up -->
+		    <Button
+		        android:id="@+id/add_scores"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="center_horizontal"
+		   	    android:onClick="addScores"
+		   	    android:text="@string/add_scores_btn"
+		         />
+		    
+		    <Button
+		        android:id="@+id/undo"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="center_horizontal"
+		   	    android:onClick="undo"
+		   	    android:text="@string/undo_btn"
+		         />
+		    
+		    <Button
+		        android:id="@+id/clear"
+		   	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_gravity="right"
+		   	    android:onClick="clear"
+		   	    android:text="@string/clear_btn"
+		         />
+	        
+	    </LinearLayout>
+	    
+	    <GridLayout
+	 	    android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+	        android:layout_margin="1dp"
+	        android:alignmentMode="alignBounds"
+	        android:columnOrderPreserved="false"
+	
+	        android:columnCount="2"
+	        android:rowCount="3" >
+	 	
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="0"
+		 	    android:text="@string/current_bid_label" />
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="1"
+		   	    android:layout_column="0"
+		 	    android:text="@string/trump_suit_label" />
+		 	<TextView
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		   	    android:layout_row="2"
+		   	    android:layout_column="0"
+		   	    android:text="@string/bidding_team_label" />
+		 	
+		 	<!-- current bid & trump suit -->
+		    <EditText
+		        android:id="@id/bid"
+		        android:inputType="number"
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="wrap_content"
+		   	    android:layout_row="0"
+		   	    android:layout_column="1"
+		   	    android:nextFocusDown="@id/trump"
+		   	    android:hint="@string/minimum_meld" />
+			<Spinner
+			    android:id="@+id/trump_spinner"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content" />
+			<ToggleButton 
+			    android:id="@+id/bidding_team"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		   	    android:layout_row="2"
+		   	    android:layout_column="1"
+			    android:textOn="Team 1"
+			    android:textOff="Team 2" />
+			
+		 	</GridLayout>
+	 	
+	
+	</LinearLayout>
+</ScrollView>
