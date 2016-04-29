@@ -11,6 +11,7 @@
     <string name="minimum_meld">250</string>
     <string name="minimum_tricks">6</string>
     <string name="score_col">Score</string>
+    <string name="date_col">Date</string>
     <string name="win_col">Winning Team</string>
     <string name="lose_col">Losing Team</string>
     <string name="team1">Team 1</string>

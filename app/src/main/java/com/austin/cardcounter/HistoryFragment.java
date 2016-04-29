@@ -21,9 +21,11 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
     public static final String COLUMN_NAME_WINNING_SCORE = "winningscore";
     public static final String COLUMN_NAME_LOSING_TEAM = "losingteam";
     public static final String COLUMN_NAME_LOSING_SCORE = "losingscore";
+    public static final String COLUMN_NAME_DATE = "date";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
+    private static final String DATE_TYPE = " DATETIME DEFAULT CURRENT_DATE";
     private static final String COMMA_SEP = ",";
     private static final String _ID = "_id";
 
@@ -33,7 +35,8 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
                 COLUMN_NAME_WINNING_TEAM + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_WINNING_SCORE + INTEGER_TYPE + COMMA_SEP +
                 COLUMN_NAME_LOSING_TEAM + TEXT_TYPE + COMMA_SEP +
-                COLUMN_NAME_LOSING_SCORE + INTEGER_TYPE +
+                COLUMN_NAME_LOSING_SCORE + INTEGER_TYPE + COMMA_SEP +
+                COLUMN_NAME_DATE + DATE_TYPE +
                 " )";
     }
 
@@ -50,17 +53,16 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && rootView != null && rootView.findViewById(mGridID) != null) {
             // When the fragment becomes visible, refresh so we get up-to-date history.
-            //http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload#20702418
             //http://stackoverflow.com/questions/10024739/how-to-determine-when-fragment-becomes-visible-in-viewpager#12523627
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(this).attach(this).commit();
+            clearGrid();
+            populateGrid();
         }
     }
 
     public void addGameEntry(String winningTeam, String losingTeam, String winningScore,
-                             String losingScore) {
+                             String losingScore, String date) {
         GridLayout historyGrid = (GridLayout) rootView.findViewById(mGridID);
         // set up the grid with the list of games in history
         historyGrid.setRowCount(numRows + 1);
@@ -119,7 +121,12 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
         // setup clear history button
         Button clearBtn = (Button) rootView.findViewById(R.id.clear_history);
         clearBtn.setOnClickListener(this);
+        populateGrid();
 
+        return rootView;
+    }
+
+    private void populateGrid() {
         // populate with list of past games
         HistoryDbHelper mDbHelper = new HistoryDbHelper(getActivity());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -129,7 +136,8 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
                 COLUMN_NAME_WINNING_TEAM,
                 COLUMN_NAME_WINNING_SCORE,
                 COLUMN_NAME_LOSING_TEAM,
-                COLUMN_NAME_LOSING_SCORE
+                COLUMN_NAME_LOSING_SCORE,
+                COLUMN_NAME_DATE
         };
         String sortOrder = _ID + " ASC";
 
@@ -150,13 +158,12 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
             String winningScore = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_WINNING_SCORE));
             String losingTeam = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_LOSING_TEAM));
             String losingScore = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_LOSING_SCORE));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_DATE));
 
-            addGameEntry(winningTeam, losingTeam, winningScore, losingScore);
+            addGameEntry(winningTeam, losingTeam, winningScore, losingScore, date);
 
             cursor.moveToNext();
         }
-
-        return rootView;
     }
 
     @Override
@@ -169,11 +176,7 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
                 db.delete(mTableName, "", empty);
 
 
-                GridLayout historyGrid = (GridLayout) rootView.findViewById(mGridID);
-                historyGrid.removeAllViews();
-                numRows = 1;
-                addGameEntry("Winning Team", "Losing Team", "Score", "Score");
-                historyGrid.invalidate();
+                clearGrid();
                 break;
             default:
                 break;
@@ -181,4 +184,11 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
         }
     }
 
+    private void clearGrid() {
+        GridLayout historyGrid = (GridLayout) rootView.findViewById(mGridID);
+        historyGrid.removeAllViews();
+        numRows = 1;
+        addGameEntry("Winning Team", "Losing Team", "Score", "Score", "Date");
+        historyGrid.invalidate();
+    }
 }
