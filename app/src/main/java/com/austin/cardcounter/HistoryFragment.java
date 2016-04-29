@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +45,18 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
 
     public HistoryFragment() {
         super();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // When the fragment becomes visible, refresh so we get up-to-date history.
+            //http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload#20702418
+            //http://stackoverflow.com/questions/10024739/how-to-determine-when-fragment-becomes-visible-in-viewpager#12523627
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }
     }
 
     public void addGameEntry(String winningTeam, String losingTeam, String winningScore,

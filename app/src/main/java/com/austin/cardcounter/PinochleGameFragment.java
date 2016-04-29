@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -351,12 +352,6 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
                     PinochleHistoryFragment.TABLE_NAME,
                     null,
                     values);
-
-            // reference for super sketch fragment getting method:
-            // http://stackoverflow.com/questions/7379165/update-data-in-listfragment-as-part-of-viewpager/8886019#8886019
-            // Add to the history fragment
-            //PinochlePinochleHistoryFragment historyFrag = (PinochlePinochleHistoryFragment)getActivity().getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":0");
-            //historyFrag.addGameEntry(name1val, name2val, Integer.toString(mTeam1Score), Integer.toString(mTeam2Score));
 
             errorToast("Team 1 wins! Game saved to History");
         } else if (mTeam2Score >= 1500) {
