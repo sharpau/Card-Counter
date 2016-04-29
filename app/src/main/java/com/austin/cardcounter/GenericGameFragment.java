@@ -20,18 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class GenericGameFragment extends Fragment implements OnClickListener {
-	ArrayList<Integer> mTeamScores;
-	ArrayList<LinearLayout> mTeamColumns;
-	
-	GridLayout mTeamsGrid;
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_generic_game, container, false);
-		mTeamsGrid = (GridLayout) rootView.findViewById(R.id.teams_grid);
-		
-		// click listener
+    ArrayList<Integer> mTeamScores;
+    ArrayList<LinearLayout> mTeamColumns;
+
+    GridLayout mTeamsGrid;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_generic_game, container, false);
+        mTeamsGrid = (GridLayout) rootView.findViewById(R.id.teams_grid);
+
+        // click listener
         Button addBtn = (Button) rootView.findViewById(R.id.add_scores);
         addBtn.setOnClickListener(this);
         Button undoBtn = (Button) rootView.findViewById(R.id.undo);
@@ -40,44 +40,44 @@ public class GenericGameFragment extends Fragment implements OnClickListener {
         clearBtn.setOnClickListener(this);
         Button plusBtn = (Button) rootView.findViewById(R.id.plus);
         plusBtn.setOnClickListener(this);
-		
-		return rootView;
-	}
 
-	@Override
-	public void onClick(View view) {
-		switch(view.getId()) {
-		case R.id.add_scores:
-			addScores(view);
-			break;
-		case R.id.undo:
-			undo(view);
-			break;
-		case R.id.clear:
-			clear(view);
-			break;
-		case R.id.plus:
-			plus(view);
-			break;
-		default:
-			break;
-		
-		}
-	}
-	
-	public void errorToast(String errorMsg) {
-		Context context = getActivity().getApplicationContext();
-		int duration = Toast.LENGTH_SHORT;
-		
-		Toast toast = Toast.makeText(context, errorMsg, duration);
-		toast.show();
-	}
-	
-	// add a new team column
-	public void plus(View view) {
-		mTeamsGrid.setColumnCount(mTeamsGrid.getColumnCount() + 1);
-		View newCol = getActivity().getLayoutInflater().inflate(R.layout.column_team, null);
-		
+        return rootView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_scores:
+                addScores(view);
+                break;
+            case R.id.undo:
+                undo(view);
+                break;
+            case R.id.clear:
+                clear(view);
+                break;
+            case R.id.plus:
+                plus(view);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public void errorToast(String errorMsg) {
+        Context context = getActivity().getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, errorMsg, duration);
+        toast.show();
+    }
+
+    // add a new team column
+    public void plus(View view) {
+        mTeamsGrid.setColumnCount(mTeamsGrid.getColumnCount() + 1);
+        View newCol = getActivity().getLayoutInflater().inflate(R.layout.column_team, null);
+
 
 //        android:layout_width="wrap_content"
 //        android:layout_height="wrap_content"
@@ -85,15 +85,15 @@ public class GenericGameFragment extends Fragment implements OnClickListener {
 //   	    android:layout_column="2"
 //   	    android:layout_rowSpan="5"
 
-		Spec col = GridLayout.spec(mTeamsGrid.getColumnCount() - 1);
-		Spec row = GridLayout.spec(0, 5);
-		LayoutParams lp = new LayoutParams(row, col);
-		mTeamsGrid.addView(newCol, lp);
-		mTeamsGrid.invalidate();
-	}
-	
-	// reset scores page entirely
-	public void clear(View view) {
+        Spec col = GridLayout.spec(mTeamsGrid.getColumnCount() - 1);
+        Spec row = GridLayout.spec(0, 5);
+        LayoutParams lp = new LayoutParams(row, col);
+        mTeamsGrid.addView(newCol, lp);
+        mTeamsGrid.invalidate();
+    }
+
+    // reset scores page entirely
+    public void clear(View view) {
 //		mTeam1Score = 0;
 //		mTeam2Score = 0;
 //		LinearLayout scrollArea1 = (LinearLayout)getActivity().findViewById(R.id.team1_list);
@@ -122,10 +122,10 @@ public class GenericGameFragment extends Fragment implements OnClickListener {
 //		meld2.setText("");
 //		trick2.setText("");
 //		bid.setText("");
-	}
-	
-	// remove last set of scores entered
-	public void undo(View view) {
+    }
+
+    // remove last set of scores entered
+    public void undo(View view) {
 //		// make sure we have something to undo
 //		LinearLayout scrollArea1 = (LinearLayout)getActivity().findViewById(R.id.team1_list);
 //		LinearLayout scrollArea2 = (LinearLayout)getActivity().findViewById(R.id.team2_list);
@@ -163,14 +163,14 @@ public class GenericGameFragment extends Fragment implements OnClickListener {
 //		newTotal = Integer.parseInt(total2.getText().toString()) - toSubtract;
 //		total2.setText(newTotal.toString());
 //		scrollArea2.invalidate();
-	}
-	
-	// add to total scores based on values entered
-	public void addScores(View view) {
-		// see 500 version for basic outline...will change a lot though
-	}
-	
-	private void addTeamScore(Integer team, Integer value) {
+    }
+
+    // add to total scores based on values entered
+    public void addScores(View view) {
+        // see 500 version for basic outline...will change a lot though
+    }
+
+    private void addTeamScore(Integer team, Integer value) {
 //		mTeam1Score += value;
 //		LinearLayout scrollArea = (LinearLayout)getActivity().findViewById(R.id.team1_list);
 //		// add textview
@@ -182,5 +182,5 @@ public class GenericGameFragment extends Fragment implements OnClickListener {
 //		// update total scores
 //		TextView score1 = (TextView)getActivity().findViewById(R.id.team1_score);
 //		score1.setText(mTeam1Score.toString());
-	}
+    }
 }
