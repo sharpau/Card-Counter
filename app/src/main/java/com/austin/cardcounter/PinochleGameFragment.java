@@ -263,7 +263,6 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
                 addTeam2Score(bidval * -1);
             }
         } else {
-
             if (trick1.getText().length() < 1) {
                 // error
                 errorToast("Invalid team 1 trick amount");
@@ -299,6 +298,9 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
                     // saved meld
                     addTeam2Score(meld2val);
                     addTeam2Score(trick2val);
+                } else {
+                    addTeam2Score(0);
+                    addTeam2Score(0);
                 }
             } else {
                 if (bidval > meld2val + trick2val) {
@@ -314,6 +316,9 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
                     // saved meld
                     addTeam1Score(meld1val);
                     addTeam1Score(trick1val);
+                }else {
+                    addTeam1Score(0);
+                    addTeam1Score(0);
                 }
             }
         }
