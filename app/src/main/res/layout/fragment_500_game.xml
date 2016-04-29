@@ -162,14 +162,14 @@
 		    
 	        
 		    <!-- button to add scores up -->
-		    <Button
-		        android:id="@+id/add_scores"
-		   	    android:layout_width="wrap_content"
-		 	    android:layout_height="wrap_content"
-		   	    android:layout_gravity="center_horizontal"
-		   	    android:onClick="addScores"
-		   	    android:text="@string/add_scores_btn"
-		         />
+			<Button
+				android:id="@+id/add_scores"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:onClick="addScores"
+				android:text="@string/add_scores_btn"
+				/>
 		    
 		    <Button
 		        android:id="@+id/undo"

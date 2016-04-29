@@ -17,6 +17,7 @@
     <string name="team2">Team 2</string>
     <string name="team">T</string>
     <string name="add_scores_btn">Add Scores</string>
+    <string name="cant_play_btn">Can\'t Play</string>
     <string name="undo_btn">Undo</string>
     <string name="clear_btn">Clear</string>
     <string name="plus_btn">+Team</string>

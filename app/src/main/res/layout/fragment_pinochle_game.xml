@@ -201,6 +201,15 @@
 		   	    android:onClick="addScores"
 		   	    android:text="@string/add_scores_btn"
 		         />
+
+			<Button
+				android:id="@+id/cant_play"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:onClick="cantPlay"
+				android:text="@string/cant_play_btn"
+				/>
 		    
 		    <Button
 		        android:id="@+id/undo"

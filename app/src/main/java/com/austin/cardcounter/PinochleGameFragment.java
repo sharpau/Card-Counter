@@ -38,8 +38,10 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 				container, false);
 		
 		// click listener
-        Button addBtn = (Button) rootView.findViewById(R.id.add_scores);
-        addBtn.setOnClickListener(this);
+		Button addBtn = (Button) rootView.findViewById(R.id.add_scores);
+		addBtn.setOnClickListener(this);
+		Button cantBtn = (Button) rootView.findViewById(R.id.cant_play);
+		cantBtn.setOnClickListener(this);
         Button undoBtn = (Button) rootView.findViewById(R.id.undo);
         undoBtn.setOnClickListener(this);
         Button clearBtn = (Button) rootView.findViewById(R.id.clear);
@@ -85,9 +87,12 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()) {
-		case R.id.add_scores:
-			addScores(view);
-			break;
+			case R.id.add_scores:
+				addScores(view, false);
+				break;
+			case R.id.cant_play:
+				addScores(view, true);
+				break;
 		case R.id.undo:
 			undo(view);
 			break;
@@ -145,36 +150,32 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 		// make sure we have something to undo
 		LinearLayout scrollArea1 = (LinearLayout)getActivity().findViewById(R.id.team1_list);
 		LinearLayout scrollArea2 = (LinearLayout)getActivity().findViewById(R.id.team2_list);
-		if(scrollArea1.getChildCount() < 2 || scrollArea2.getChildCount() < 2) {
+		if(scrollArea1.getChildCount() < 1 || scrollArea2.getChildCount() < 1) {
 			return;
 		}
 		
-		// get IDs of the last 2 text boxes in each LinearLayout
+		// get IDs of the last text box in each LinearLayout
 		TextView v1 = (TextView) scrollArea1.getChildAt(scrollArea1.getChildCount() - 1);
-		TextView v2 = (TextView) scrollArea1.getChildAt(scrollArea1.getChildCount() - 2);
-		Integer toSubtract = Integer.parseInt(v1.getText().toString()) + Integer.parseInt(v2.getText().toString());
+		Integer toSubtract = Integer.parseInt(v1.getText().toString());
 		mTeam1Score -= toSubtract;
 		
-		// remove text boxes
-		scrollArea1.removeViewAt(scrollArea1.getChildCount() - 1);
+		// remove text box
 		scrollArea1.removeViewAt(scrollArea1.getChildCount() - 1);
 
-		// figure out scores to subtract
+		// figure out score to subtract
 		TextView total1 = (TextView)getActivity().findViewById(R.id.team1_score);
 		Integer newTotal = Integer.parseInt(total1.getText().toString()) - toSubtract;
 		total1.setText(newTotal.toString());
 		scrollArea1.invalidate();
 
-		TextView v3 = (TextView) scrollArea2.getChildAt(scrollArea2.getChildCount() - 1);
-		TextView v4 = (TextView) scrollArea2.getChildAt(scrollArea2.getChildCount() - 2);
-		toSubtract = Integer.parseInt(v3.getText().toString()) + Integer.parseInt(v4.getText().toString());
+		TextView v2 = (TextView) scrollArea2.getChildAt(scrollArea2.getChildCount() - 1);
+		toSubtract = Integer.parseInt(v2.getText().toString());
 		mTeam2Score -= toSubtract;
 		
-		// remove text boxes
-		scrollArea2.removeViewAt(scrollArea2.getChildCount() - 1);
+		// remove text box
 		scrollArea2.removeViewAt(scrollArea2.getChildCount() - 1);
 
-		// figure out scores to subtract
+		// figure out score to subtract
 		TextView total2 = (TextView)getActivity().findViewById(R.id.team2_score);
 		newTotal = Integer.parseInt(total2.getText().toString()) - toSubtract;
 		total2.setText(newTotal.toString());
@@ -182,7 +183,8 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 	}
 	
 	// add to total scores based on values entered
-	public void addScores(View view) {
+	// cantPlay means insufficient meld, i.e. meld + 250 < bid
+	public void addScores(View view, boolean cantPlay) {
 		/*
 		 * lots of error checking
 		 * 		melds & tricks have numbers (fail = do nothing)
@@ -233,22 +235,6 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 		}
 		int meld2val = Integer.parseInt(meld2.getText().toString());
 
-		EditText trick1 = (EditText)getActivity().findViewById(R.id.team1_tricks);
-		if(trick1.getText().length() < 1) {
-			// error
-			errorToast("Invalid team 1 trick amount");
-			return;
-		}
-		int trick1val = Integer.parseInt(trick1.getText().toString());
-
-		EditText trick2 = (EditText)getActivity().findViewById(R.id.team2_tricks);
-		if(trick2.getText().length() < 1) {
-			// error
-			errorToast("Invalid team 2 trick amount");
-			return;
-		}
-		int trick2val = Integer.parseInt(trick2.getText().toString());
-
 		EditText bid = (EditText)getActivity().findViewById(R.id.bid);
 		if(bid.getText().length() < 3) {
 			// error
@@ -256,54 +242,81 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 			return;
 		}
 		int bidval = Integer.parseInt(bid.getText().toString());
-		
-		ToggleButton team = (ToggleButton)getActivity().findViewById(R.id.bidding_team);
-		Boolean team1 = team.isChecked();
-		
-		
-		if(trick1val + trick2val != 250) {
-			// error
-			errorToast("Trick values do not add to 250");
-			return;
-		}
-		if(bidval < 250) {
+
+		if (bidval < 250) {
 			// error
 			errorToast("Bid value below 250");
 			return;
 		}
-		
-		if(team1) {
-			if(bidval > meld1val + trick1val) {
-				// set
-				addTeam1Score(0);
-				addTeam1Score(-1 * bidval);
-			}
-			else {
-				// made it
-				addTeam1Score(meld1val);
-				addTeam1Score(trick1val);
-			}
-			if(trick2val > 0) {
-				// saved meld
+
+		ToggleButton team = (ToggleButton)getActivity().findViewById(R.id.bidding_team);
+		Boolean team1 = team.isChecked();
+
+		EditText trick1 = (EditText) getActivity().findViewById(R.id.team1_tricks);
+		EditText trick2 = (EditText) getActivity().findViewById(R.id.team2_tricks);
+
+		if (cantPlay) {
+			// bidding team is forfeiting - they go back, other team goes forward
+			if (team1) {
+				addTeam1Score(bidval * -1);
 				addTeam2Score(meld2val);
-				addTeam2Score(trick2val);
-			}
-		}
-		else {
-			if(bidval > meld2val + trick2val) {
-				// set
-				addTeam2Score(0);
-				addTeam2Score(-1 * bidval);
-			}
-			else {
-				// made it
-				addTeam2Score(meld2val);
-				addTeam2Score(trick2val);
-			}
-			if(trick1val > 0) {
-				// saved meld
+			} else {
 				addTeam1Score(meld1val);
-				addTeam1Score(trick1val);
+				addTeam2Score(bidval * -1);
+			}
+		} else {
+
+			if (trick1.getText().length() < 1) {
+				// error
+				errorToast("Invalid team 1 trick amount");
+				return;
+			}
+			int trick1val = Integer.parseInt(trick1.getText().toString());
+
+			if (trick2.getText().length() < 1) {
+				// error
+				errorToast("Invalid team 2 trick amount");
+				return;
+			}
+			int trick2val = Integer.parseInt(trick2.getText().toString());
+
+
+			if (trick1val + trick2val != 250) {
+				// error
+				errorToast("Trick values do not add to 250");
+				return;
+			}
+
+			if (team1) {
+				if (bidval > meld1val + trick1val) {
+					// set
+					addTeam1Score(0);
+					addTeam1Score(-1 * bidval);
+				} else {
+					// made it
+					addTeam1Score(meld1val);
+					addTeam1Score(trick1val);
+				}
+				if (trick2val > 0) {
+					// saved meld
+					addTeam2Score(meld2val);
+					addTeam2Score(trick2val);
+				}
+			} else {
+				if (bidval > meld2val + trick2val) {
+					// set
+					addTeam2Score(0);
+					addTeam2Score(-1 * bidval);
+				} else {
+					// made it
+					addTeam2Score(meld2val);
+					addTeam2Score(trick2val);
+				}
+				if (trick1val > 0) {
+					// saved meld
+					addTeam1Score(meld1val);
+					addTeam1Score(trick1val);
+				}
 			}
 		}
 
