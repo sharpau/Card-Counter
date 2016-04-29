@@ -105,6 +105,15 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
         lp.width = LayoutParams.WRAP_CONTENT;
         historyGrid.addView(losingScoreText, lp);
 
+        TextView dateText = new TextView(getActivity());
+        dateText.setText(date);
+        lp = new GridLayout.LayoutParams();
+        lp.columnSpec = GridLayout.spec(4);
+        lp.rowSpec = GridLayout.spec(numRows);
+        lp.height = LayoutParams.WRAP_CONTENT;
+        lp.width = LayoutParams.WRAP_CONTENT;
+        historyGrid.addView(dateText, lp);
+
         numRows++;
         rootView.invalidate();
     }
