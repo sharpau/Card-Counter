@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/pinochle"
+            android:title="Pinochle"
+            android:checked="true" />
+        <item
+            android:id="@+id/five_hundred"
+            android:title="500" />
+        <item
+            android:id="@+id/generic"
+            android:title="Generic" />
+    </group>
+</menu>

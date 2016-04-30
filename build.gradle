@@ -6,6 +6,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
     }
+
+    ext {
+        supportLibVersion = '23.3.0'  // variable that can be referenced to keep support libs consistent
+    }
 }
 
 allprojects {

@@ -64,21 +64,6 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-
-        if (((MainActivity) getActivity()).mTeam1Scores != null && ((MainActivity) getActivity()).mTeam2Scores != null) {
-            for (int score : ((MainActivity) getActivity()).mTeam1Scores) {
-                addTeam1Score(score);
-            }
-            for (int score : ((MainActivity) getActivity()).mTeam2Scores) {
-                addTeam2Score(score);
-            }
-        }
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_scores:
