@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 public abstract class HistoryFragment extends Fragment implements OnClickListener {
 
-    public String TABLE_NAME = "genericHistory"; // overwritten by subclasses
     public static final String COLUMN_NAME_WINNING_TEAM = "winningteam";
     public static final String COLUMN_NAME_WINNING_SCORE = "winningscore";
     public static final String COLUMN_NAME_LOSING_TEAM = "losingteam";
@@ -29,7 +27,7 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
     private static final String COMMA_SEP = ",";
     private static final String _ID = "_id";
 
-    public static final String SqlCreateEntries(String table) {
+    public static String SqlCreateEntries(String table) {
         return "CREATE TABLE " + table + " (" +
                 _ID + " INTEGER PRIMARY KEY," +
                 COLUMN_NAME_WINNING_TEAM + TEXT_TYPE + COMMA_SEP +
@@ -67,7 +65,7 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
         // set up the grid with the list of games in history
         historyGrid.setRowCount(numRows + 1);
 
-        GridLayout.LayoutParams lp = new GridLayout.LayoutParams();
+        GridLayout.LayoutParams lp;
         // add textviews
         TextView winningTeamText = new TextView(getActivity());
         winningTeamText.setText(winningTeam);
@@ -121,7 +119,8 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
     @Override
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-    public View onCreateViewHelper(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, int layout, int gridID, String table) {
+    public View onCreateViewHelper(LayoutInflater inflater, ViewGroup container,
+                                   int layout, int gridID, String table) {
         rootView = inflater.inflate(layout,
                 container, false);
         mGridID = gridID;
@@ -173,6 +172,8 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
 
             cursor.moveToNext();
         }
+
+        cursor.close();
     }
 
     @Override
@@ -181,9 +182,7 @@ public abstract class HistoryFragment extends Fragment implements OnClickListene
             case R.id.clear_history:
                 HistoryDbHelper mDbHelper = new HistoryDbHelper(getActivity());
                 SQLiteDatabase db = mDbHelper.getReadableDatabase();
-                String[] empty = null;
-                db.delete(mTableName, "", empty);
-
+                db.delete(mTableName, "", null);
 
                 clearGrid();
                 break;

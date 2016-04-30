@@ -12,7 +12,6 @@ import android.widget.GridLayout.LayoutParams;
 
 public class FiveHundredScoringFragment extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class FiveHundredScoringFragment extends Fragment {
         GridLayout trickLayout = (GridLayout) rootView.findViewById(R.id.five_hundred_scoring);
 
         TextView trickCol = new TextView(getActivity());
-        trickCol.setText("Tricks Bid");
+        trickCol.setText(R.string.tricks_bid);
         LayoutParams rightJust = new GridLayout.LayoutParams();
         rightJust.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.RIGHT);
         trickLayout.addView(trickCol, rightJust);
@@ -61,7 +60,7 @@ public class FiveHundredScoringFragment extends Fragment {
         trickLayout.addView(hearts, rightJust);
 
         TextView notrump = new TextView(getActivity());
-        notrump.setText("NT");
+        notrump.setText(R.string.nt);
         rightJust = new GridLayout.LayoutParams();
         rightJust.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.RIGHT);
         rightJust.height = LayoutParams.WRAP_CONTENT;

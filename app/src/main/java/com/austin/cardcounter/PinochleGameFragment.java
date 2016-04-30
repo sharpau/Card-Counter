@@ -1,18 +1,15 @@
 package com.austin.cardcounter;
 
-import com.austin.cardcounter.PinochleHistoryFragment;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +23,6 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 
     Integer mTeam1Score = 0;
     Integer mTeam2Score = 0;
-    int[] mSavedTeam1Scores;
-    int[] mSavedTeam2Scores;
 
     public PinochleGameFragment() {
     }
@@ -52,14 +47,12 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     int val = Integer.parseInt(v.getText().toString());
                     EditText tricks2 = (EditText) getActivity().findViewById(R.id.team2_tricks);
                     tricks2.setText(Integer.toString(250 - val));
-                    //handled = true;
                 }
-                return handled;
+                return false;
             }
         });
 
@@ -89,16 +82,16 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_scores:
-                addScores(view, false);
+                addScores(false);
                 break;
             case R.id.cant_play:
-                addScores(view, true);
+                addScores(true);
                 break;
             case R.id.undo:
-                undo(view);
+                undo();
                 break;
             case R.id.clear:
-                clear(view);
+                clear();
                 break;
             default:
                 break;
@@ -115,7 +108,7 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
     }
 
     // reset scores page entirely
-    public void clear(View view) {
+    public void clear() {
         mTeam1Score = 0;
         mTeam2Score = 0;
         LinearLayout scrollArea1 = (LinearLayout) getActivity().findViewById(R.id.team1_list);
@@ -147,7 +140,7 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
     }
 
     // remove last set of scores entered
-    public void undo(View view) {
+    public void undo() {
         // make sure we have something to undo
         LinearLayout scrollArea1 = (LinearLayout) getActivity().findViewById(R.id.team1_list);
         LinearLayout scrollArea2 = (LinearLayout) getActivity().findViewById(R.id.team2_list);
@@ -185,7 +178,7 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
 
     // add to total scores based on values entered
     // cantPlay means insufficient meld, i.e. meld + 250 < bid
-    public void addScores(View view, boolean cantPlay) {
+    public void addScores(boolean cantPlay) {
         /*
 		 * lots of error checking
 		 * 		melds & tricks have numbers (fail = do nothing)
@@ -347,8 +340,7 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
             values.put(PinochleHistoryFragment.COLUMN_NAME_LOSING_SCORE, mTeam2Score);
 
             // Insert the new row, returning the primary key value of the new row
-            long newRowId;
-            newRowId = db.insert(
+            db.insert(
                     PinochleHistoryFragment.TABLE_NAME,
                     null,
                     values);
@@ -368,15 +360,10 @@ public class PinochleGameFragment extends Fragment implements OnClickListener {
             values.put(PinochleHistoryFragment.COLUMN_NAME_LOSING_SCORE, mTeam1Score);
 
             // Insert the new row, returning the primary key value of the new row
-            long newRowId;
-            newRowId = db.insert(
+            db.insert(
                     PinochleHistoryFragment.TABLE_NAME,
                     null,
                     values);
-
-            // Add to the history fragment
-            //PinochleHistoryFragment historyFrag = (PinochleHistoryFragment)getActivity().getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":0");
-            //historyFrag.addGameEntry(name2val, name1val, Integer.toString(mTeam2Score), Integer.toString(mTeam1Score));
 
             errorToast("Team 2 wins! Game saved to History");
         }

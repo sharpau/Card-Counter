@@ -42,6 +42,8 @@
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="tricks_bid">Tricks Bid</string>
+    <string name="nt">NT</string>
 
     <string-array name="melds">
         <item>Aces Around</item>

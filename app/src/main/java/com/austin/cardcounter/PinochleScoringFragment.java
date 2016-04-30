@@ -98,24 +98,27 @@ public class PinochleScoringFragment extends Fragment implements OnClickListener
     }
 
     // swap the two tricks layouts
-    public void SwitchTricks(View view) {
+    public void SwitchTricks() {
         View root = getView();
-        if (mSimpleScoring) {
-            mSimpleScoring = false;
 
-            GridLayout trickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks);
-            trickLayout.setVisibility(View.VISIBLE);
+        if (root != null) {
+            if (mSimpleScoring) {
+                mSimpleScoring = false;
 
-            GridLayout simpleTrickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks_simple);
-            simpleTrickLayout.setVisibility(View.GONE);
-        } else {
-            mSimpleScoring = true;
+                GridLayout trickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks);
+                trickLayout.setVisibility(View.VISIBLE);
 
-            GridLayout trickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks);
-            trickLayout.setVisibility(View.GONE);
+                GridLayout simpleTrickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks_simple);
+                simpleTrickLayout.setVisibility(View.GONE);
+            } else {
+                mSimpleScoring = true;
 
-            GridLayout simpleTrickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks_simple);
-            simpleTrickLayout.setVisibility(View.VISIBLE);
+                GridLayout trickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks);
+                trickLayout.setVisibility(View.GONE);
+
+                GridLayout simpleTrickLayout = (GridLayout) root.findViewById(R.id.fragment_scoring_tricks_simple);
+                simpleTrickLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -123,7 +126,7 @@ public class PinochleScoringFragment extends Fragment implements OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.switch_scoring_button:
-                SwitchTricks(view);
+                SwitchTricks();
                 break;
             default:
                 break;

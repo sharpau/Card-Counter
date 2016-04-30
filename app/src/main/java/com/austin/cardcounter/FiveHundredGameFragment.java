@@ -1,17 +1,15 @@
 package com.austin.cardcounter;
 
-import com.austin.cardcounter.MainActivity.ImgAdapter;
-
-import android.support.v4.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +25,6 @@ public class FiveHundredGameFragment extends Fragment implements
 
     Integer mTeam1Score = 0;
     Integer mTeam2Score = 0;
-    int[] mSavedTeam1Scores;
-    int[] mSavedTeam2Scores;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,14 +44,12 @@ public class FiveHundredGameFragment extends Fragment implements
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     int val = Integer.parseInt(v.getText().toString());
                     EditText tricks2 = (EditText) getActivity().findViewById(R.id.team2_tricks);
                     tricks2.setText(Integer.toString(10 - val));
-                    //handled = true;
                 }
-                return handled;
+                return false;
             }
         });
 
@@ -65,40 +59,24 @@ public class FiveHundredGameFragment extends Fragment implements
         return rootView;
     }
 
-
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-
-//        if(((MainActivity)getActivity()).mTeam1Scores != null && ((MainActivity)getActivity()).mTeam2Scores != null) {
-//		    for(int score : ((MainActivity)getActivity()).mTeam1Scores) {
-//		    	addTeam1Score(score);
-//		    }
-//		    for(int score : ((MainActivity)getActivity()).mTeam2Scores) {
-//		    	addTeam2Score(score);
-//		    }
-//        }
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_scores:
-                addScores(view);
+                addScores();
                 break;
             case R.id.undo:
-                undo(view);
+                undo();
                 break;
             case R.id.clear:
-                clear(view);
+                clear();
             default:
                 break;
         }
     }
 
     // add to total scores based on values entered
-    public void addScores(View view) {
+    public void addScores() {
             /*
 			 * lots of error checking
 			 * 		tricks have numbers 0 < x < 10 (fail = do nothing)
@@ -293,8 +271,7 @@ public class FiveHundredGameFragment extends Fragment implements
             values.put(FiveHundredHistoryFragment.COLUMN_NAME_LOSING_SCORE, mTeam2Score);
 
             // Insert the new row, returning the primary key value of the new row
-            long newRowId;
-            newRowId = db.insert(
+            db.insert(
                     FiveHundredHistoryFragment.TABLE_NAME,
                     null,
                     values);
@@ -314,8 +291,7 @@ public class FiveHundredGameFragment extends Fragment implements
             values.put(FiveHundredHistoryFragment.COLUMN_NAME_LOSING_SCORE, mTeam1Score);
 
             // Insert the new row, returning the primary key value of the new row
-            long newRowId;
-            newRowId = db.insert(
+            db.insert(
                     FiveHundredHistoryFragment.TABLE_NAME,
                     null,
                     values);
@@ -352,7 +328,7 @@ public class FiveHundredGameFragment extends Fragment implements
     }
 
     // reset scores page entirely
-    public void clear(View view) {
+    public void clear() {
         mTeam1Score = 0;
         mTeam2Score = 0;
         LinearLayout scrollArea1 = (LinearLayout) getActivity().findViewById(R.id.team1_list);
@@ -381,7 +357,7 @@ public class FiveHundredGameFragment extends Fragment implements
 
 
     // remove last set of scores entered
-    public void undo(View view) {
+    public void undo() {
         // make sure we have something to undo
         LinearLayout scrollArea1 = (LinearLayout) getActivity().findViewById(R.id.team1_list);
         LinearLayout scrollArea2 = (LinearLayout) getActivity().findViewById(R.id.team2_list);

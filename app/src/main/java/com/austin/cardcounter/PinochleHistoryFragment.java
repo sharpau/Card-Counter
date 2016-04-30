@@ -14,6 +14,6 @@ public class PinochleHistoryFragment extends HistoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return onCreateViewHelper(inflater, container, savedInstanceState, R.layout.fragment_pinochle_history, R.id.pinochle_history_grid, TABLE_NAME);
+        return onCreateViewHelper(inflater, container, R.layout.fragment_pinochle_history, R.id.pinochle_history_grid, TABLE_NAME);
     }
 }
